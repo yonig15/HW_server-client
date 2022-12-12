@@ -7,10 +7,11 @@ import { ToastContainer, toast } from "react-toastify";
 
 export const StudentRow = (props) => {
   const [studentsArr, setStudentsArr] = useState([]);
+  const [Del, setDel] = useState(true);
 
   const notify_info = () =>
     toast.info("student deleted from list", {
-      position: "top-center",
+      position: "top-left",
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -27,12 +28,14 @@ export const StudentRow = (props) => {
 
   useEffect(() => {
     initComponent();
-  }, []);
+  }, [Del]);
 
   const handleDelete = async (firstName) => {
     notify_info();
+    setDel((prev) => !prev);
     await removeStudentByName(firstName);
   };
+
   return (
     <>
       {studentsArr.length > 0 ? (
